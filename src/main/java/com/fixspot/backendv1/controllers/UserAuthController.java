@@ -2,7 +2,7 @@ package com.fixspot.backendv1.controllers;
 
 import com.fixspot.backendv1.auth.JwtService;
 import com.fixspot.backendv1.auth.MyUserDetailService;
-import com.fixspot.backendv1.dto.UserDto;
+import com.fixspot.backendv1.dto.RegisterUserRequest;
 import com.fixspot.backendv1.dto.UsernameRequest;
 import com.fixspot.backendv1.entities.UserModel;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
@@ -43,14 +43,14 @@ public class UserAuthController {
         return ResponseEntity.ok(ResultWrapper.success("", "Data"));
     }
 
-    @PostMapping(value = "user/save-user")
-    public ResponseEntity<ResultWrapper<UserModel>> saveUser(@RequestBody UserDto user) {
+    @PostMapping(value = "user/register-user")
+    public ResponseEntity<ResultWrapper<UserModel>> saveUser(@RequestBody RegisterUserRequest user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.saveUser(user);
+        return userService.registerUser(user);
     }
 
     @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody UserDto loginForm) {
+    public String authenticateAndGetToken(@RequestBody RegisterUserRequest loginForm) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginForm.getUsername(), loginForm.getPassword()
         ));
