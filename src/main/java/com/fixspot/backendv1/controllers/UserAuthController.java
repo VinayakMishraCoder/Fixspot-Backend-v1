@@ -13,9 +13,7 @@ public class UserAuthController {
 
     @GetMapping(value = "get-user")
     public ResponseEntity<ResultWrapper<Integer>> getUser() {
-        ExceptionHandler.tryExecute(() ->{
-            return ResponseEntity.ok(ResultWrapper.success("",1));
-        }, () -> {}, () -> {});
+        return ResponseEntity.ok(ResultWrapper.success("", 1));
     }
 }
 
