@@ -2,8 +2,10 @@ package com.fixspot.backendv1.config;
 
 
 import com.fixspot.backendv1.auth.JwtAuthenticationFilter;
-import com.fixspot.backendv1.auth.MyUserDetailService;
+import com.fixspot.backendv1.auth.CustomUserDetailServiceImpl;
 import com.fixspot.backendv1.dto.common.UserRoles;
+import com.fixspot.backendv1.exception.handler.CustomAccessDeniedHandler;
+import com.fixspot.backendv1.generalUtil.Routes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,21 +28,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private MyUserDetailService userDetailService;
+    private CustomUserDetailServiceImpl userDetailService;
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/home", "/api/v1/authenticate", "/api/v1/user/**").permitAll();
-                    registry.requestMatchers("/api/v1/admin/**").hasRole(UserRoles.ADMIN.name());
-//                    registry.requestMatchers("/api/v1/user/**").hasRole(UserRoles.REPORTER.name());
+                    for (String o : Routes.permitted) { registry.requestMatchers(o).permitAll(); }
+                    registry.requestMatchers("/"+Routes.API_V1+Routes.AUTHORITY_ROUTES).hasRole(UserRoles.AUTHORITY.name());
+                    registry.requestMatchers("/"+Routes.API_V1+Routes.REPORTER_ROUTES).hasRole(UserRoles.REPORTER.name());
                     registry.anyRequest().authenticated();
                 })
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .accessDeniedHandler(accessDeniedHandler) // Set custom handler
+                )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

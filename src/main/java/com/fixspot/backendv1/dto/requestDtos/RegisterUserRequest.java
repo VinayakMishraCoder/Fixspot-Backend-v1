@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.dto;
+package com.fixspot.backendv1.dto.requestDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

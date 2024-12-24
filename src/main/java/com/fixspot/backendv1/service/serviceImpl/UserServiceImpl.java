@@ -1,14 +1,16 @@
 package com.fixspot.backendv1.service.serviceImpl;
 
-import com.fixspot.backendv1.dto.RegisterUserRequest;
+import com.fixspot.backendv1.dto.requestDtos.RegisterUserRequest;
 import com.fixspot.backendv1.dto.common.UserRoles;
 import com.fixspot.backendv1.entities.UserModel;
+import com.fixspot.backendv1.exception.exceptions.UserExistsException;
 import com.fixspot.backendv1.generalUtil.Pair;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.repositories.UserRepository;
 import com.fixspot.backendv1.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,28 +22,28 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public ResponseEntity<ResultWrapper<UserModel>> getUser(String username) {
-        try {
-            return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(username).get()));
-        } catch (Exception e) {
-            return ResponseEntity.ok(ResultWrapper.failure(e.getMessage()));
-        }
+        return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(username).get()));
     }
 
     @Override
-    public ResponseEntity<ResultWrapper<UserModel>> registerUser(RegisterUserRequest user) {
-        try {
-            // todo: check if username already exists.
-            Pair<Boolean, String> checker = check(user);
-            if(!checker.getFirst()) {
-                return ResponseEntity.ok(ResultWrapper.failure(checker.getSecond()));
-            }
-            userRepository.save(UserModel.builder().password(user.getPassword()).username(user.getUsername()).role(user.getRole()).build());
-            return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(user.getUsername()).get()));
-        } catch (Exception e) {
-            return ResponseEntity.ok(ResultWrapper.failure(e.getMessage()));
+    public ResponseEntity<ResultWrapper<UserModel>> registerUser(RegisterUserRequest user) throws Exception {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UserExistsException();
         }
+
+        Pair<Boolean, String> registerUserRequestChecker = check(user);
+        if (!registerUserRequestChecker.getFirst()) {
+            throw new Exception(registerUserRequestChecker.getSecond());
+        }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(UserModel.builder().password(user.getPassword()).username(user.getUsername()).role(user.getRole()).build());
+        return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(user.getUsername()).get()));
     }
 
 
