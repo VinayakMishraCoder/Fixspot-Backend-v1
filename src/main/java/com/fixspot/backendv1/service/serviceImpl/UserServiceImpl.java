@@ -1,8 +1,8 @@
 package com.fixspot.backendv1.service.serviceImpl;
 
-import com.fixspot.backendv1.dto.requestDtos.RegisterUserRequest;
-import com.fixspot.backendv1.dto.common.UserRoles;
-import com.fixspot.backendv1.entities.UserModel;
+import com.fixspot.backendv1.dto.common.RegisterUserRequest;
+import com.fixspot.backendv1.dto.common.enums.UserRoles;
+import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.exception.exceptions.UserExistsException;
 import com.fixspot.backendv1.generalUtil.Pair;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
@@ -26,12 +26,12 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public ResponseEntity<ResultWrapper<UserModel>> getUser(String username) {
+    public ResponseEntity<ResultWrapper<UserEntity>> getUser(String username) {
         return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(username).get()));
     }
 
     @Override
-    public ResponseEntity<ResultWrapper<UserModel>> registerUser(RegisterUserRequest user) throws Exception {
+    public ResponseEntity<ResultWrapper<UserEntity>> registerUser(RegisterUserRequest user) throws Exception {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new UserExistsException();
         }
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(UserModel.builder().password(user.getPassword()).username(user.getUsername()).role(user.getRole()).build());
+        userRepository.save(UserEntity.builder().password(user.getPassword()).username(user.getUsername()).role(user.getRole()).build());
         return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(user.getUsername()).get()));
     }
 

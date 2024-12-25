@@ -2,7 +2,7 @@ package com.fixspot.backendv1.controllers;
 
 import com.fixspot.backendv1.auth.CustomUserDetailServiceImpl;
 import com.fixspot.backendv1.auth.JwtService;
-import com.fixspot.backendv1.dto.requestDtos.RegisterUserRequest;
+import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.generalUtil.Routes;
 import com.fixspot.backendv1.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

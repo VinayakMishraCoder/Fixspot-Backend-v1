@@ -1,8 +1,8 @@
 package com.fixspot.backendv1.auth;
 
 
-import com.fixspot.backendv1.dto.common.UserRoles;
-import com.fixspot.backendv1.entities.UserModel;
+import com.fixspot.backendv1.dto.common.enums.UserRoles;
+import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +21,7 @@ public class CustomUserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserModel> user = repository.findByUsername(username);
+        Optional<UserEntity> user = repository.findByUsername(username);
         if (user.isPresent()) {
             var userObj = user.get();
             return User.builder()
@@ -34,10 +34,10 @@ public class CustomUserDetailServiceImpl implements UserDetailsService {
         }
     }
 
-    private String[] getRoles(UserModel userModel) {
-        if (userModel.getRole() == null) {
+    private String[] getRoles(UserEntity userEntity) {
+        if (userEntity.getRole() == null) {
             return new String[]{UserRoles.REPORTER.name()};
         }
-        return userModel.getRole().split(",");
+        return userEntity.getRole().split(",");
     }
 }

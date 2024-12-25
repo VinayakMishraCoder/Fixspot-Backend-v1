@@ -39,9 +39,6 @@ public class Routes {
      */
     public static Boolean isAlwaysPermitted(String route) {
         System.out.println("Route: " + route);
-        permitted.forEach(e -> {
-            System.out.println(e);
-        });
         if (route == null || route.isEmpty()) return false;
         return permitted.contains(route);
     }

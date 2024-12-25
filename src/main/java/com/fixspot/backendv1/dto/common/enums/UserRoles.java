@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.dto.common;
+package com.fixspot.backendv1.dto.common.enums;
 
 public enum UserRoles {
     REPORTER,

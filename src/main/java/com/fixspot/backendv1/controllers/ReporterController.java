@@ -1,9 +1,9 @@
 package com.fixspot.backendv1.controllers;
 
 
-import com.fixspot.backendv1.dto.requestDtos.RegisterUserRequest;
+import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.dto.requestDtos.UsernameRequest;
-import com.fixspot.backendv1.entities.UserModel;
+import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.generalUtil.Routes;
 import com.fixspot.backendv1.service.services.UserService;
@@ -22,14 +22,14 @@ public class ReporterController {
     private UserService userService;
 
     @PostMapping(value = Routes.REPORTER_GET_USER)
-    public ResponseEntity<ResultWrapper<UserModel>> getUser(
+    public ResponseEntity<ResultWrapper<UserEntity>> getUser(
             @RequestBody UsernameRequest usernameRequest
     ) {
         return userService.getUser(usernameRequest.getUsername());
     }
 
     @PostMapping(value = Routes.REPORTER_REGISTRATION)
-    public ResponseEntity<ResultWrapper<UserModel>> saveUser(
+    public ResponseEntity<ResultWrapper<UserEntity>> saveUser(
             @RequestBody RegisterUserRequest user
     ) throws Exception {
         return userService.registerUser(user);
