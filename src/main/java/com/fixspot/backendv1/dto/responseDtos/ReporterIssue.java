@@ -1,15 +1,17 @@
 package com.fixspot.backendv1.dto.responseDtos;
 
-import com.fixspot.backendv1.entities.UserEntity;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
+@Builder
+@Data
 public class ReporterIssue {
-
     private Integer id;
     private String issueDescription;
     private List<String> images;
-    private UserEntity issuer;
+    private Integer issuer;
     private String longitude;
     private String latitude;
     private String address;

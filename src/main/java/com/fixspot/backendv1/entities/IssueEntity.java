@@ -13,24 +13,28 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "issue_table")
 public class IssueEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "issue_description", nullable = false)
     private String issueDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issuer_id", nullable = false)
     private UserEntity issuer;
 
+    @Column(name = "longitude", nullable = false)
     private String longitude;
+
+    @Column(name = "latitude", nullable = false)
     private String latitude;
+
+    @Column(name = "address", nullable = false)
     private String address;
 
-    private String status; // will be from the enum IssueStatus
+    @Column(name = "status", nullable = false)
+    private String status; // Will be from the enum IssueStatus
 }
-
-
-
-
-

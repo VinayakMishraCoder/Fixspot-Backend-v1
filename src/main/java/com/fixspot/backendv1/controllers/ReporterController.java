@@ -3,6 +3,7 @@ package com.fixspot.backendv1.controllers;
 
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.dto.requestDtos.UsernameRequest;
+import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
 import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.generalUtil.Routes;
@@ -22,7 +23,7 @@ public class ReporterController {
     private UserService userService;
 
     @PostMapping(value = Routes.REPORTER_GET_USER)
-    public ResponseEntity<ResultWrapper<UserEntity>> getUser(
+    public ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(
             @RequestBody UsernameRequest usernameRequest
     ) {
         return userService.getUser(usernameRequest.getUsername());
