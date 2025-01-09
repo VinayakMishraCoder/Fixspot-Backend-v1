@@ -24,6 +24,15 @@ public class UserIssueController {
     ) {
         return reporterService.addIssueToReporter(issue);
     }
+
+    @PostMapping(Routes.ISSUE_UPVOTE)
+    public ResponseEntity<ResultWrapper<String>> upvoteIssue(
+            @RequestBody CreateIssueRequest issue
+    ) {
+        return reporterService.addIssueToReporter(issue);
+    }
+
+
 }
 
 

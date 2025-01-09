@@ -1,12 +1,15 @@
 package com.fixspot.backendv1.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -68,4 +71,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "issuer", cascade = CascadeType.ALL)
     private List<IssueEntity> reportedIssues; // Issues reported by this user.
+
+    @ManyToMany(mappedBy = "upvoters")
+    private Set<IssueEntity> upvotedIssues = new HashSet<>();
 }

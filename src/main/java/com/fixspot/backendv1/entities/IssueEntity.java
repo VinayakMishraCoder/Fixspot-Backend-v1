@@ -1,10 +1,16 @@
 package com.fixspot.backendv1.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -29,7 +35,7 @@ public class IssueEntity {
     @Column(name = "longitude", nullable = false)
     private String longitude;
 
-    @Column(name = "latitude", nullable = false)
+    @Column(name =  "latitude", nullable = false)
     private String latitude;
 
     @Column(name = "address", nullable = false)
@@ -37,4 +43,7 @@ public class IssueEntity {
 
     @Column(name = "status", nullable = false)
     private String status; // Will be from the enum IssueStatus
+
+    @ManyToMany
+    private List<UserEntity> upVoters;
 }
