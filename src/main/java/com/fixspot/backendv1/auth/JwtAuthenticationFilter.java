@@ -35,6 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         System.out.println(Routes.isAlwaysPermitted(request.getRequestURI()));
 
+        /*
+         * Used for separating the permitting routes with actual permit and routes who dont have permit and want custom error message.
+         * */
         if(Routes.isAlwaysPermitted(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
