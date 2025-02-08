@@ -23,7 +23,7 @@ public class IssueEntity {
     private String issueDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "issuer_id", nullable = false)
+    @JoinColumn(name = "issuer_id_fk", nullable = false)
     private UserEntity issuer;
 
     @Column(name = "longitude", nullable = false)

@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.service.services;
+package com.fixspot.backendv1.service.reporter;
 
 import com.fixspot.backendv1.dto.requestDtos.CreateIssueRequest;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;

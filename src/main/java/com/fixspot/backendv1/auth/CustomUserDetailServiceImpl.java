@@ -1,7 +1,7 @@
 package com.fixspot.backendv1.auth;
 
 
-import com.fixspot.backendv1.dto.common.enums.UserRoles;
+import com.fixspot.backendv1.enums.UserRoles;
 import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.service.services;
+package com.fixspot.backendv1.service.user;
 
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;

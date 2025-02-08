@@ -7,7 +7,7 @@ import java.util.List;
 
 @Builder
 @Data
-public class ReporterIssue {
+public class ReporterIssueResponse {
     private Integer id;
     private String issueDescription;
     private List<String> images;

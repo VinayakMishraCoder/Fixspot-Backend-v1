@@ -1,16 +1,15 @@
-package com.fixspot.backendv1.service.serviceImpl;
+package com.fixspot.backendv1.service.user;
 
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
-import com.fixspot.backendv1.dto.common.enums.UserRoles;
+import com.fixspot.backendv1.enums.UserRoles;
 import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
-import com.fixspot.backendv1.dto.responseDtos.ReporterIssue;
+import com.fixspot.backendv1.dto.responseDtos.ReporterIssueResponse;
 import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.exception.exceptions.UserExistsException;
 import com.fixspot.backendv1.generalUtil.Pair;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.repositories.IssueRepository;
 import com.fixspot.backendv1.repositories.UserRepository;
-import com.fixspot.backendv1.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,16 +36,16 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(String username) {
         UserEntity user = userRepository.findByUsername(username).get();
 
-        List<ReporterIssue> issues = new ArrayList<>();
+        List<ReporterIssueResponse> issues = new ArrayList<>();
         issueRepository.findByIssuer(user.getId()).forEach(i -> {
-            issues.add(ReporterIssue.builder()
-                            .issuer(user.getId())
-                            .address(i.getAddress())
-                            .issueDescription(i.getIssueDescription())
-                            .status(i.getStatus())
-                            .latitude(i.getLatitude())
-                            .longitude(i.getLongitude())
-                            .id(i.getId())
+            issues.add(ReporterIssueResponse.builder()
+                    .issuer(user.getId())
+                    .address(i.getAddress())
+                    .issueDescription(i.getIssueDescription())
+                    .status(i.getStatus())
+                    .latitude(i.getLatitude())
+                    .longitude(i.getLongitude())
+                    .id(i.getId())
                     .build());
         });
 

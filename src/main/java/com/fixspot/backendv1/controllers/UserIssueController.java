@@ -3,7 +3,7 @@ package com.fixspot.backendv1.controllers;
 import com.fixspot.backendv1.dto.requestDtos.CreateIssueRequest;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.generalUtil.Routes;
-import com.fixspot.backendv1.service.services.ReporterService;
+import com.fixspot.backendv1.service.reporter.ReporterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

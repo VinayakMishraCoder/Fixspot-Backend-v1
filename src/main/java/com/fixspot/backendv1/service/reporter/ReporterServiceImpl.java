@@ -1,13 +1,12 @@
-package com.fixspot.backendv1.service.serviceImpl;
+package com.fixspot.backendv1.service.reporter;
 
-import com.fixspot.backendv1.dto.common.enums.IssueStatus;
+import com.fixspot.backendv1.enums.IssueStatus;
 import com.fixspot.backendv1.dto.requestDtos.CreateIssueRequest;
 import com.fixspot.backendv1.entities.IssueEntity;
 import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.repositories.IssueRepository;
 import com.fixspot.backendv1.repositories.UserRepository;
-import com.fixspot.backendv1.service.services.ReporterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

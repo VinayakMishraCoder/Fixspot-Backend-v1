@@ -32,7 +32,7 @@ public class Routes {
         permitted.add("/"+Routes.API_V1+"/"+AUTH_LOGIN);
         permitted.add("/"+Routes.API_V1+"/"+AUTHORITY_REGISTRATION);
         permitted.add("/"+Routes.API_V1+"/"+REPORTER_REGISTRATION);
-        permitted.add("/"+Routes.API_V1+"/"+ISSUE_CREATE);
+//        permitted.add("/"+Routes.API_V1+"/"+ISSUE_CREATE);
     }
 
     // Util functions.
