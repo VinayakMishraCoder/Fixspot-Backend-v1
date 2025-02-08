@@ -1,10 +1,9 @@
 package com.fixspot.backendv1.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -36,5 +35,14 @@ public class IssueEntity {
     private String address;
 
     @Column(name = "status", nullable = false)
-    private String status; // Will be from the enum IssueStatus
+    private String status;
+
+    // ✅ Many-to-Many Upvotes Relationship
+    @ManyToMany
+    @JoinTable(
+            name = "user_issue_upvotes",
+            joinColumns = @JoinColumn(name = "issue_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<UserEntity> upvoters = new HashSet<>();
 }
