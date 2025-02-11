@@ -1,6 +1,5 @@
 package com.fixspot.backendv1.dto.responseDtos;
 
-import com.fixspot.backendv1.entities.IssueEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,5 +21,5 @@ public class ReporterDetailsResponse {
     private String firstName;
     private String lastName;
     private String role;
-    private List<ReporterIssue> reportedIssues; // Issues reported by this user.
+    private List<ReporterIssueResponse> reportedIssues; // Issues reported by this user.
 }

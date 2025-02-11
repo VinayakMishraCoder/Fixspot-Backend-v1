@@ -1,10 +1,12 @@
 package com.fixspot.backendv1.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.catalina.LifecycleState;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,7 +25,7 @@ public class IssueEntity {
     private String issueDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "issuer_id", nullable = false)
+    @JoinColumn(name = "issuer_id_fk", nullable = false)
     private UserEntity issuer;
 
     @Column(name = "longitude", nullable = false)
@@ -36,5 +38,14 @@ public class IssueEntity {
     private String address;
 
     @Column(name = "status", nullable = false)
-    private String status; // Will be from the enum IssueStatus
+    private String status;
+
+    // ✅ Many-to-Many Upvotes Relationship
+    @ManyToMany
+    @JoinTable(
+            name = "user_issue_upvotes",
+            joinColumns = @JoinColumn(name = "issue_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<UserEntity> upvoters;
 }

@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.service.services;
+package com.fixspot.backendv1.service.user;
 
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-
     ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(String username);
     ResponseEntity<ResultWrapper<UserEntity>> registerUser(RegisterUserRequest user) throws UserExistsException, Exception;
+    ResponseEntity<ResultWrapper<String>> generateToken(RegisterUserRequest loginForm);
 }
