@@ -1,10 +1,12 @@
 package com.fixspot.backendv1.service.user;
 
+import com.fixspot.backendv1.auth.CustomUserDetailServiceImpl;
+import com.fixspot.backendv1.auth.JwtService;
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
-import com.fixspot.backendv1.enums.UserRoles;
 import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
 import com.fixspot.backendv1.dto.responseDtos.ReporterIssueResponse;
 import com.fixspot.backendv1.entities.UserEntity;
+import com.fixspot.backendv1.enums.UserRoles;
 import com.fixspot.backendv1.exception.exceptions.UserExistsException;
 import com.fixspot.backendv1.generalUtil.Pair;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
@@ -12,8 +14,13 @@ import com.fixspot.backendv1.repositories.IssueRepository;
 import com.fixspot.backendv1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +37,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private CustomUserDetailServiceImpl customUserDetailServiceImpl;
+
 
     @Override
     public ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(String username) {
@@ -97,6 +114,17 @@ public class UserServiceImpl implements UserService {
                 .build();
         userRepository.save(user);
         return ResponseEntity.ok(ResultWrapper.success("success", userRepository.findByUsername(user.getUsername()).get()));
+    }
+
+    public ResponseEntity<ResultWrapper<String>> generateToken(RegisterUserRequest loginForm) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginForm.getUsername(), loginForm.getPassword()
+        ));
+        if (authentication.isAuthenticated()) {
+            return ResponseEntity.ok(ResultWrapper.success("success", jwtService.generateToken(customUserDetailServiceImpl.loadUserByUsername(loginForm.getUsername()))));
+        } else {
+            throw new UsernameNotFoundException("Invalid credentials");
+        }
     }
 
 

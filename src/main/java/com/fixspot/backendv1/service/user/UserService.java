@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-
     ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(String username);
     ResponseEntity<ResultWrapper<UserEntity>> registerUser(RegisterUserRequest user) throws UserExistsException, Exception;
+    ResponseEntity<ResultWrapper<String>> generateToken(RegisterUserRequest loginForm);
 }
