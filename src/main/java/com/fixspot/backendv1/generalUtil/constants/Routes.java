@@ -1,4 +1,4 @@
-package com.fixspot.backendv1.generalUtil;
+package com.fixspot.backendv1.generalUtil.constants;
 
 import java.util.HashSet;
 import java.util.List;

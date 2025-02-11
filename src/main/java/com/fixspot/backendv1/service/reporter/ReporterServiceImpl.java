@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class ReporterServiceImpl implements ReporterService {
@@ -25,6 +24,7 @@ public class ReporterServiceImpl implements ReporterService {
     @Autowired
     private IssueRepository issueRepository;
 
+    @Override
     public ResponseEntity<ResultWrapper<String>> addIssueToReporter(CreateIssueRequest request) {
         Optional<UserEntity> userOptional = userRepository.findById(request.getReporterId());
         if (userOptional.isEmpty()) {
@@ -32,18 +32,20 @@ public class ReporterServiceImpl implements ReporterService {
         }
 
         UserEntity user = userOptional.get();
+
         IssueEntity issue = IssueEntity.builder()
                 .issueDescription(request.getIssueDescription())
                 .latitude(request.getLatitude())
                 .address(request.getAddress())
                 .longitude(request.getLongitude())
                 .status(IssueStatus.UNRESOLVED.name())
+                .imgUrls(request.getImgUrls())
                 .issuer(user)
                 .build();
 
-        issueRepository.save(issue);
+        issueRepository.save(issue); // Save issue to generate ID
 
-        return ResponseEntity.ok(ResultWrapper.success("Successful","Saved."));
+        return ResponseEntity.ok(ResultWrapper.success("Successful", "Issue saved with images."));
     }
 
     @Override
@@ -59,6 +61,7 @@ public class ReporterServiceImpl implements ReporterService {
                             .issueDescription(issue.getIssueDescription())
                             .issuer(issue.getIssuer() != null ? issue.getIssuer().getId() : null) // Null check for issuer
                             .longitude(issue.getLongitude())
+                            .images(issue.getImgUrls())
                             .latitude(issue.getLatitude())
                             .address(issue.getAddress())
                             .upVoters(String.valueOf(upvoters.size())) // Avoid null
@@ -70,5 +73,4 @@ public class ReporterServiceImpl implements ReporterService {
 
         return ResponseEntity.ok(ResultWrapper.success("success", reporterIssues));
     }
-
 }

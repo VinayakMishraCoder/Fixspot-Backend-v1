@@ -1,11 +1,14 @@
 package com.fixspot.backendv1.entities;
 
+import com.fixspot.backendv1.generalUtil.constants.TableNames;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -13,10 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(
-        name = "user_table",
+        name = TableNames.USER_TABLE,
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"username"}),
-                @UniqueConstraint(columnNames = {"mobile_no"})
+            @UniqueConstraint(columnNames = {"username"}),
+            @UniqueConstraint(columnNames = {"mobile_no"}),
         }
 )
 public class UserEntity {
@@ -70,4 +73,7 @@ public class UserEntity {
 
     @ManyToMany(mappedBy = "upvoters")
     private List<IssueEntity> upvotedIssues;
+
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
 }
