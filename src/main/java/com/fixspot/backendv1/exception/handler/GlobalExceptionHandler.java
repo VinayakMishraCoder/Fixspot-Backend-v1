@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResultWrapper<Object>> handleGeneralException(Exception ex) {
-        return ResponseEntity.ok(ResultWrapper.failure("An unexpected error occurred: " +ex.getMessage()));
+        return ResponseEntity.ok(ResultWrapper.failure("An unexpected error occurred: " +ex.getStackTrace() + "\n" + ex.getLocalizedMessage() + "\n" + ex.getCause()));
     }
 }
 

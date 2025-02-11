@@ -24,6 +24,9 @@ public class Routes {
 
     public static final String ISSUE_ROUTES = "/issues/**";
     public static final String ISSUE_CREATE = "issues/create-issue";
+    public static final String ISSUES_GET = "issues/get-issues/{userId}";
+    public static final String ISSUE_UPVOTE = "issues/upvote-issue/{issueId}/{userId}";
+    public static final String ISSUE_DOWN_VOTE = "issues/down-vote-issue/{issueId}/{userId}";
 
     // Initializing the permitted routes in a static block
     static {

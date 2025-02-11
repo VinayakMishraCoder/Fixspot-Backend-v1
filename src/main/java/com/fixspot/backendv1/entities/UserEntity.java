@@ -69,5 +69,5 @@ public class UserEntity {
     private List<IssueEntity> reportedIssues;
 
     @ManyToMany(mappedBy = "upvoters")
-    private Set<IssueEntity> upvotedIssues = new HashSet<>();
+    private List<IssueEntity> upvotedIssues;
 }

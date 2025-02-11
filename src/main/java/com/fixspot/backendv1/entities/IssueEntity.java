@@ -2,7 +2,10 @@ package com.fixspot.backendv1.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.catalina.LifecycleState;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,5 +47,5 @@ public class IssueEntity {
             joinColumns = @JoinColumn(name = "issue_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<UserEntity> upvoters = new HashSet<>();
+    private List<UserEntity> upvoters;
 }

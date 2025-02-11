@@ -15,7 +15,7 @@ public class ReporterIssueResponse {
     private String longitude;
     private String latitude;
     private String address;
-    private String upVoters; // Users who up-voted this issue.
+    private String upVoters; // Number of users who up-voted this issue.
     private String status; // will be from the enum IssueStatus
     private Boolean isUpVoted;
 }
