@@ -1,6 +1,10 @@
 package com.fixspot.backendv1.controllers;
 
+
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
+import com.fixspot.backendv1.dto.requestDtos.UsernameRequest;
+import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
+import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
 import com.fixspot.backendv1.generalUtil.constants.Routes;
 import com.fixspot.backendv1.service.user.UserService;
@@ -13,15 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Routes.API_V1)
-public class UserAuthController {
+public class ReporterController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping(Routes.AUTH_LOGIN)
-    public ResponseEntity<ResultWrapper<String>> authenticateAndGetToken(@RequestBody RegisterUserRequest loginForm) {
-           return userService.generateToken(loginForm);
+    @PostMapping(value = Routes.REPORTER_GET_USER)
+    public ResponseEntity<ResultWrapper<ReporterDetailsResponse>> getUser(
+            @RequestBody UsernameRequest usernameRequest
+    ) {
+        return userService.getUser(usernameRequest.getUsername());
+    }
+
+    @PostMapping(value = Routes.REPORTER_REGISTRATION)
+    public ResponseEntity<ResultWrapper<UserEntity>> saveUser(
+            @RequestBody RegisterUserRequest user
+    ) throws Exception {
+        return userService.registerUser(user);
     }
 }
-
-
