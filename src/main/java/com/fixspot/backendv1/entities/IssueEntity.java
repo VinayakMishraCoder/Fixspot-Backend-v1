@@ -1,21 +1,26 @@
 package com.fixspot.backendv1.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.apache.catalina.LifecycleState;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
+import static com.fixspot.backendv1.generalUtil.constants.TableNames.ISSUE_TABLE;
+import static com.fixspot.backendv1.generalUtil.constants.TableNames.USER_ISSUE_UP_VOTES;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "issue_table")
-public class IssueEntity {
+@Table(name = ISSUE_TABLE)
+public class IssueEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -40,10 +45,13 @@ public class IssueEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    // ✅ Many-to-Many Upvotes Relationship
+    @Column
+    @ElementCollection
+    private List<String> imgUrls;
+
     @ManyToMany
     @JoinTable(
-            name = "user_issue_upvotes",
+            name = USER_ISSUE_UP_VOTES,
             joinColumns = @JoinColumn(name = "issue_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )

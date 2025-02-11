@@ -2,7 +2,7 @@ package com.fixspot.backendv1.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
-import com.fixspot.backendv1.generalUtil.Routes;
+import com.fixspot.backendv1.generalUtil.constants.Routes;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

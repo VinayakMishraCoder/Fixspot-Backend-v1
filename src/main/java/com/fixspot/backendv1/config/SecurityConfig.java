@@ -5,7 +5,7 @@ import com.fixspot.backendv1.auth.JwtAuthenticationFilter;
 import com.fixspot.backendv1.auth.CustomUserDetailServiceImpl;
 import com.fixspot.backendv1.enums.UserRoles;
 import com.fixspot.backendv1.exception.handler.CustomAccessDeniedHandler;
-import com.fixspot.backendv1.generalUtil.Routes;
+import com.fixspot.backendv1.generalUtil.constants.Routes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

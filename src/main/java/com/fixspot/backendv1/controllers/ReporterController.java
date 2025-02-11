@@ -6,7 +6,7 @@ import com.fixspot.backendv1.dto.requestDtos.UsernameRequest;
 import com.fixspot.backendv1.dto.responseDtos.ReporterDetailsResponse;
 import com.fixspot.backendv1.entities.UserEntity;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
-import com.fixspot.backendv1.generalUtil.Routes;
+import com.fixspot.backendv1.generalUtil.constants.Routes;
 import com.fixspot.backendv1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

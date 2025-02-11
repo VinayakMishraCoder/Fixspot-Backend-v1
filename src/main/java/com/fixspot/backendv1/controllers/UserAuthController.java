@@ -2,7 +2,7 @@ package com.fixspot.backendv1.controllers;
 
 import com.fixspot.backendv1.dto.common.RegisterUserRequest;
 import com.fixspot.backendv1.generalUtil.ResultWrapper;
-import com.fixspot.backendv1.generalUtil.Routes;
+import com.fixspot.backendv1.generalUtil.constants.Routes;
 import com.fixspot.backendv1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
