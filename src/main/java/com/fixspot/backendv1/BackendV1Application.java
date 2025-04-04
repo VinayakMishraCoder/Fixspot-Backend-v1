@@ -9,3 +9,11 @@ public class BackendV1Application {
 		SpringApplication.run(BackendV1Application.class, args);
 	}
 }
+
+
+/**
+ * To design authority problem solving flow and onboarding flow.
+ * for geocoding/reverse-geocoding - https://maps.olakrutrim.com/apidocs/geocode
+ * for places photo - https://maps.olakrutrim.com/apidocs/places
+ * for distance and duration and poly-line on maps - https://maps.olakrutrim.com/apidocs/routing
+ * */
